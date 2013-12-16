@@ -1,0 +1,39 @@
+<div ng-controller="MainCtrl" ng-init="init()">
+<div class="header">
+  <ul class="nav nav-pills pull-right">
+    <li class="active" ng-hide="loggedIn">
+      <a href="/auth/twitter">Login</a></li>
+    <li class="active" ng-show="loggedIn">
+      <a ng-click="getTweets()">Load New Tweets</a></li>
+  </ul>
+  <h3 class="text-muted">tweeter</h3>
+</div>
+<div class="jumbotron" ng-hide="loggedIn" ng-cloak>
+  <h1>twitter in your browser</h1>
+</div>
+
+<div class="tweets">
+  <div ng-repeat="tweet in tweets" class="tweet row marketing" ng-show="loggedIn">
+    <img src={{tweet.user.profile_image_url}} />
+    <small>{{tweet.user.screen_name}}</small>
+    <p class="tweet-text">
+      {{tweet.text}}
+    </p>
+    <p class="tweet-text">
+      <span><i class="glyphicon glyphicon-refresh" ng-click="reTweet(tweet)"></i></span>
+      <span><i class="glyphicon glyphicon-heart-empty" ng-click="favoriteTweet(tweet)"></i></span>
+    </p>
+  </div>
+</div>
+
+<form class="form-inline " role="form" ng-submit="sendTweet()" ng-show="loggedIn">
+  <div class="form-group">
+    <textarea class="form-control tweet-area" ng-model="text" rows="3"></textarea>
+  </div>
+  <input type="submit" class="btn btn-primary" value="Send Tweet">
+</form>
+
+<div class="footer">
+  <p><small>by james keppy dominguez</small></p>
+</div>
+</div>

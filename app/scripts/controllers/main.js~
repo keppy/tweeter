@@ -1,0 +1,94 @@
+'use strict';
+
+angular.module('tweeterApp')
+  .controller('MainCtrl', function ($scope, $http, $resource) {
+    $scope.awesomeThings = [
+      'HTML5 Boilerplate',
+      'AngularJS',
+      'Karma'
+    ];
+
+    // API call to check for a logged in user, 
+    // populating $scope.loggedIn and $scope.currentUser
+    var init = function () {
+
+      $http({method: 'GET', url: 'api/v1/users'}).
+        success(function(data, status) {
+
+          if (typeof data.id === "number") {
+            $scope.loggedIn = true;
+            $scope.userId = data.id;
+          }
+          else {
+            $scope.loggedIn = false;
+          }
+
+        }).
+        error(function(data, status){
+          $scope.loggedIn = false;
+        });
+    };
+
+    init(); // Fire init right away.
+
+
+
+    // Create the Tweet resource
+    var Tweet = $resource('/api/v1/:userId/tweets', {userId: $scope.userId});
+
+    // Get the stream of tweets and put it in $scope.tweets
+    var tweets = Tweet.query(function() {
+      $scope.tweets = tweets;
+    )};
+
+
+
+    // Send a new tweet
+    $scope.tweet = function (text) {
+
+      var request = {twitter_action: 'new', tweet: text};
+
+      $http({method: 'POST', url: 'api/v1/tweets', data: request}).
+        success(function(data, status) {
+          $scope.stats = status;
+          $scope.data = data;
+        }).
+        error(function(data, status) {
+          $scope.stats = status;
+          $scope.data = data;
+        });
+   };
+
+   // Retweet an existing tweet
+   $scope.retweet = function(id) {
+
+     var request = {twitter_action: 'retweet', tweet_id: id};
+
+     $http({method: 'POST', url: 'api/v1/tweets', data: request}).
+       success(function(data, status) {
+         $scope.stats = status;
+         $scope.data = data;
+       }).
+       error(function(data, status){
+         $scope.stats = status;
+         $scope.data = data;
+       });
+   };
+
+   // Favorite an existing tweet
+ 
+   $scope.favorite = function(id) {
+
+     var request = {twitter_action: 'favorite', tweet_id: id};
+
+     $http({method: 'POST', url: 'api/v1/tweets', data: request}).
+       success(function(data, status) {
+         $scope.stats = status;
+         $scope.data = data;
+       }).
+       error(function(data, status) {
+         $scope.stats = status;
+         $scipe.data = data;
+       });
+   };
+});

@@ -1,6 +1,7 @@
-tweeter
-live at http://pacific-stream-9612.herokuapp.com/
+tweeter :boom:
 =======
+live at http://pacific-stream-9612.herokuapp.com/
+
 
 A twitter interface built with angular.
 - Utilizing the [yeoman](http://yeoman.io/)

@@ -13,15 +13,15 @@
 </div>
 
 <div class="tweets">
-  <div ng-repeat="tweet in tweets" class="tweet row marketing" ng-show="loggedIn">
+  <div ng-repeat="tweet in tweets" class="tweet row marketing" ng-show="loggedIn" ng-class="{retweeted: tweet.retweeted, favorited: tweet.favorited}">
     <img src="{{tweet.user.profile_image_url}}">
     <small>{{tweet.user.screen_name}}</small>
     <p class="tweet-text">
       {{tweet.text}}
     </p>
     <p class="tweet-text">
-      <span><i class="glyphicon glyphicon-refresh" ng-click="reTweet(tweet)"></i></span>
-      <span><i class="glyphicon glyphicon-heart-empty" ng-click="favoriteTweet(tweet)"></i></span>
+      <span><i class="glyphicon glyphicon-refresh" ng-click="reTweet(tweet)"></i> <italic>retweet </italic></span>
+      <span><i class="glyphicon glyphicon-heart-empty" ng-click="favoriteTweet(tweet)"> </i><italic> favorite</italic></span>
     </p>
   </div>
 </div>

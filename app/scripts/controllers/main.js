@@ -36,23 +36,23 @@ angular.module('tweeterApp')
     // API call to check for a logged in user, 
     // populating $scope.loggedIn and $scope.currentUser
     var init = function () {
-      if ($scope.loggedIn == false) {
+      if ($scope.loggedIn === false) {
 
-      $http({method: 'GET', url: 'api/v1/users'}).
-        success(function(data, status) {
-          if (typeof data.id === "number") {
-            $scope.loggedIn = true;
-            $scope.userId = data.id;
+        $http({method: 'GET', url: 'api/v1/users'}).
+          success(function(data, status) {
+            if (typeof data.id === "number") {
+              $scope.loggedIn = true;
+              $scope.userId = data.id;
 
-            $scope.getTweets();
-          }
-          else {
+              $scope.getTweets();
+            }
+            else {
+              $scope.loggedIn = false;
+            }
+          }).
+          error(function(data, status){
             $scope.loggedIn = false;
-          }
-        }).
-        error(function(data, status){
-          $scope.loggedIn = false;
-        });
+          });
 
       }
     };
@@ -81,6 +81,9 @@ angular.module('tweeterApp')
    // Retweet an existing tweet
    $scope.reTweet = function(tweet) {
 
+     // Style the tweet with ngClass
+     tweet.retweeted = true;
+
      var id = tweet.id_str;
      var request = {twitter_action: 'retweet', tweet_id: id};
      var uri = '/api/v1/users/' + $scope.userId + '/tweets';
@@ -98,6 +101,9 @@ angular.module('tweeterApp')
 
    // Favorite an existing tweet
    $scope.favoriteTweet = function(tweet) {
+
+     // Style the tweet with ngClass
+     tweet.favorited = true;
 
      var id = tweet.id_str;
      var request = {twitter_action: 'favorite', tweet_id: id};

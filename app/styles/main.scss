@@ -2,6 +2,15 @@ $icon-font-path: "/bower_components/sass-bootstrap/fonts/";
 
 @import 'sass-bootstrap/lib/bootstrap';
 
+div.tweet {
+  background-color: white; 
+  transition: background-color 1s linear
+}
+
+div.retweeted { background-color: #99CC00; }
+div.favorited { background-color: #FF3300; }
+div.favorited.retweeted { background-color: #DA6B00; }
+
 .red {
   color: red;
 }
